@@ -49,6 +49,34 @@ Khi sử dụng function component giúp dự án có cấu trúc dễ dàng, co
     )
     //render to web
     ReactDOM.render(jsx, document.body)
+    // có thể truyền tham số cho function component là các kiểu dữ liệu (làm việc như function)
+    //props sẽ sẽ nhận các tham số truyền vào ở <Course .../> , ở đây props sẽ là object chứ các thông tin 
+        function Course(props) {
+            return (
+             <div className="course-item">
+               <img src={props.img}/>
+               <h2 className="post-title">{props.title}</h2>
+               <p className="post-des">{props.des}</p>
+               <p className="post-pub">{props.pub}</p>
+             </div>
+            )
+        }
+
+    const jsx = (
+        <div className="post-list">
+          {
+            courses.map(course => 
+              <Course
+               img = {course.courseImg}
+               title={course.title}
+               des = {course.courseDes}
+               pub = {course.coursePublic}
+              />
+            )
+          }
+        </div>
+    )
+    ReactDOM.render(jsx, document.body)
 
 </script>
 </html>
