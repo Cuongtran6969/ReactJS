@@ -1,0 +1,50 @@
+ const Input = ({label, ...forInput}) => {
+      return (
+            <div>
+              <label>{label}</label>
+              <input {...forInput}></input> 
+            </div>
+      )
+    }
+    const handleOnclick = (course) => {
+        alert(course.courseTitle)
+    } 
+    const Button = ({children}) => {
+      return(
+        <button>{children}</button>
+      )
+    }
+    //in React component, in ul tag map data to get props(include item, index..) and spread into children function
+    const List = ({data, children}) => {
+      return (
+        <ul>
+          {
+            // data.map((...props) => children(...props))
+            //into data.map is function so we can pass children , and pass all param of map to children
+            data.map(children)
+          }
+        </ul>
+      )
+    }
+    function App() {
+      const type = 'input'
+      const cars = ['Mers', 'Bmw', 'Audi']
+      return (
+       <div id='wrapper'>
+         <Input
+           label = 'Email'
+           type = {type}
+           placeholder = 'Input email...'
+           onBlur = {()=> alert(Math.random())}
+         />
+        <Button>Click me</Button>
+        //pass props include array, and children is a function
+        <List data={cars}>
+           {(item, index) => <li key={index}>{item}</li>}
+        </List>
+
+        </div>
+      )
+    }
+
+    ReactDOM.render(<App/>, document.body)
