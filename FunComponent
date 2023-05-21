@@ -1,0 +1,54 @@
+/**
+Khi sử dụng function component giúp dự án có cấu trúc dễ dàng, code có tính kế thừa (việc tái sử dụng code dễ dàng) 
+**/
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React</title>
+    <script crossorigin src="https://unpkg.com/react@17.0.0/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17.0.0/umd/react-dom.production.min.js"></script> 
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body> 
+</body>
+<script type="text/babel">
+    const courses = [
+        {
+            id: 0,
+            courseImg: 'https://files.fullstack.edu.vn/f8-prod/blog_posts/6936/6422afa5a62f8.jpg',
+            courseTitle: 'Learn JavaScript while Playing Games — Gamify Your Learning',
+            courseDes: 'Tôi làm chuyên môn về phân tích dữ liệu, chủ yếu là dùng phần mềm chuyên môn sâu và dùng rất nhiều SQL db, python. ',
+            coursePublic: '4 ngày trước'
+        },
+        {
+            id: 1,
+            courseImg: 'https://files.fullstack.edu.vn/f8-prod/blog_posts/6936/6422afa5a62f8.jpg',
+            courseTitle: 'Learn JavaScript while Playing Games — Gamify Your Learning',
+            courseDes: 'Tôi làm chuyên môn về phân tích dữ liệu, chủ yếu là dùng phần mềm chuyên môn sâu và dùng rất nhiều SQL db, python. ',
+            coursePublic: '4 ngày trước'
+        }
+    ]
+    //function component
+    function Course() {
+      return courses.map(course => (
+            <div className="course-item">
+               <img src={course.courseImg}/>
+               <h2 className="post-title">{course.courseTitle}</h2>
+               <p className="post-des">{course.courseDes}</p>
+               <p className="post-pub">{course.coursePublic}</p>
+            </div>)
+             )}
+   
+    const jsx = (
+        <div className="post-list">
+          <Course/>  
+        </div>
+    )
+    //render to web
+    ReactDOM.render(jsx, document.body)
+
+</script>
+</html>
