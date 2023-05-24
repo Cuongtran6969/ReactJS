@@ -1,0 +1,79 @@
+import { click } from "@testing-library/user-event/dist/click";
+import { useState } from "react";
+
+//INTRODUCTION
+//useState will return a array include
+//state: in first time it will get value of initial value
+//setState: set new state, when setItem call and the param this func recevie is new value for state
+  const [state, setState] = useState(initialState);
+
+//example of setState call back a function, prev is previous value
+//setState(prev => prev+1)
+
+example couter program:
+function App() {
+  const [state, setState] = useState(initialState);
+  const handleClick = () => {
+    setState(counter+1)
+  } 
+  
+  return (
+    <div className="">
+      <h1>{state}</h1>
+      <button onClick={handleClick}>Click</button>
+    </div>
+  )
+}
+
+//This is small project add product to cart/* fun: choose product => add new product in your cart*/
+const listProduct = [
+  { id: 1, name: 'Áo thun', price: 150, quantity: 2 , img: 'https://product.hstatic.net/200000305259/product/tee_blk_3_e88e4655355f45898078648e4e801851_master.jpg'},
+  { id: 2, name: 'Quần jean', price: 350, quantity: 1 , img: 'https://suteki.com.vn/uploads/dong-phuc-su-kien/t-shirt/t-shirt-3-owen-xanh-do/0-t-shirt-4-owen-xanh-do.jpg'},
+  { id: 3, name: 'Giày sneaker', price: 120, quantity: 3 , img: 'https://bizweb.dktcdn.net/100/414/728/products/vcx-1.jpg?v=1684833449017'}
+]
+const listBought = []
+const liStyle = {
+  border: '1px solid red',
+  width: 200
+};
+function Product({item, onclick}) {
+  return (
+    <li  onClick={onclick} style={liStyle}>
+    <img src={item.img} style={{width: 100, height:100}}/>
+    <p className="item-name">{item.name}</p>
+    <span className="item-price">$ {item.price}</span>
+    </li>
+  )
+}
+function ProductBuy({product}) {
+  return(
+    <li>{product.name}</li>
+  )
+}
+function App() {
+
+  const handleClick = (itemPr) => {
+    setItem(prev => [...prev, itemPr])
+  }
+  console.log(item);
+  return (
+    <div className="App" style={{padding: 20}}>
+      <ul>
+        {listProduct.map(item => <Product key={item.id} 
+        item={item}
+        onclick = {()=>handleClick(item)}
+        />)}
+      </ul>
+      <div>
+        <h2>Giỏ hàng cuả bạn</h2>
+        <ul>
+           {
+            item.map(item => <ProductBuy product={item}/>)
+           }
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+export default App;
