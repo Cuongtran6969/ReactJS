@@ -1,0 +1,13 @@
+function App() {
+  const [item, setItem] = useState('');
+  console.log(item);
+  return (
+    <div style={{padding: 20}}>
+      <input 
+       value={item}
+       onChange={(e) => setItem(e.target.value)}
+      />
+      <button onClick={() => setItem('Hello')}>Click</button>
+    </div>
+  )
+}
