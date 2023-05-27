@@ -59,14 +59,13 @@ function App() {
 export default App;
 //TODO app by useState
 function App() {
-  //get value of array to local storage
+  //get value of array haved stored in local storage
   const dataStore = JSON.parse(localStorage.getItem('jobs'))
   console.log(dataStore);
   const [state, setstate] = useState('');
   //undifide or null it wil take []
   const [list, setList] = useState(dataStore ?? []);
   const handleClick = () => {
-    // if(state!='') {
       setList(prev => {
         const newState = [...prev, state]
         const setJson = JSON.stringify(newState)
@@ -75,9 +74,7 @@ function App() {
         return newState;
       }  
      )
-    // }
     setstate('')
-    console.log(list);
   }
   let workId = 0;
   return (
