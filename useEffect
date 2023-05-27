@@ -1,0 +1,31 @@
+//useEffect have 3 stuation:
+//1. useEffect(callBack)
+//2. useEffect(callBack, [])
+//3. useEffect(callBack, [dependence])
+
+/* TH1 mỗi khi Content được mount vào thì useEffect được gọi*/
+//chức năng input value và title của tab thay đổi theo/
+//khi nó được thêm vào trong DOM thì nó mới gọi đến useEffect/
+import { useEffect } from "react"
+import { useState } from "react"
+const Content = () => {
+    const [state, setState] = useState('')
+    useEffect(() => {
+        console.log('Renders');
+    })
+
+   const handleOnchage = (value) => {
+    document.title = value
+    setState(value)
+   }
+
+    return (
+     <div>
+      <input
+       value={state}
+       onChange={(e) => handleOnchage(e.target.value)}
+      />
+     </div>
+    )
+}
+export default Content
