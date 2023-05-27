@@ -1,3 +1,5 @@
+//change value of input will set item = value in input box
+//ứng dụng của nó giúp cho dễ dàng lấy ra phần tử được set giá trị thông qua item, không cần query như code thuần 
 function App() {
   const [item, setItem] = useState('');
   console.log(item);
@@ -11,3 +13,47 @@ function App() {
     </div>
   )
 }
+//
+function App() {
+  const [name, setName] = useState('');
+  const [mail, setEmail] = useState([]);
+  return (
+    <div style={{padding: 20}}>
+      <input onChange={(e) => setName(e.target.value)}/>
+      <input onChange={(e) => setEmail(e.target.value)}/>
+      <button onClick={() => console.log({name: name, email: mail})}>Click</button>
+    </div>
+  )
+}
+
+export default App;
+//checkbox
+//when check it will put in array, and check if have checked with click then filter get other in array
+function App() {
+  const [state, setstate] = useState([]);
+  const checkState = (id) => {
+    setstate(prev => {
+      const isChecked = state.includes(id)
+      if(!isChecked) {
+        return [...prev, id]
+      }else{
+        return state.filter(item => item!=id)
+      }
+    })
+  }
+  console.log(state);
+  return (
+    <div style={{padding: 20}}>
+      {courses.map((course) => 
+       (
+        <div key={course.id}>
+          <p>{course.name}</p>
+          <input type="checkBox"  onClick={() => checkState(course.id)}></input>
+        </div>
+       )
+     )}
+    </div>
+  )
+}
+
+export default App;
