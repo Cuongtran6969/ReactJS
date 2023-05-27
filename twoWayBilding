@@ -57,3 +57,45 @@ function App() {
 }
 
 export default App;
+//TODO app by useState
+function App() {
+  //get value of array to local storage
+  const dataStore = JSON.parse(localStorage.getItem('jobs'))
+  console.log(dataStore);
+  const [state, setstate] = useState('');
+  //undifide or null it wil take []
+  const [list, setList] = useState(dataStore ?? []);
+  const handleClick = () => {
+    // if(state!='') {
+      setList(prev => {
+        const newState = [...prev, state]
+        const setJson = JSON.stringify(newState)
+        //set value of array to local storage by a address = jobs
+        localStorage.setItem('jobs', setJson)
+        return newState;
+      }  
+     )
+    // }
+    setstate('')
+    console.log(list);
+  }
+  let workId = 0;
+  return (
+    <div style={{padding: 20}}>
+      <input
+       value={state}
+       onChange={(e) => setstate(e.target.value)}
+      />
+      <button onClick={handleClick} >Add</button>
+      <ul>
+        {
+          list.map(item => 
+            (<li key={workId++}>{item}</li>)
+            )
+        }
+      </ul>
+    </div>
+  )
+}
+
+export default App;
