@@ -28,4 +28,76 @@ const Content = () => {
      </div>
     )
 }
+export default ContContent
+
+//TH2: khi input vào thì useEffect sẽ hoạt động nên sẽ gọi callBack mỗi khi input
+//đối số thứ 2 của useEffect là một mảng rỗng, có nghĩa nó chỉ gọi và thực hiện duy nhất lđầuđầu
+import { useEffect } from "react"
+import { useState } from "react"
+const Content = () => {
+    const [state, setState] = useState('')
+    useEffect(() => {
+        console.log('Renders');
+    }, [])
+
+   const handleOnchage = (value) => {
+    document.title = value
+    setState(value)
+   }
+
+    return (
+     <div>
+      <input
+       value={state}
+       onChange={(e) => handleOnchage(e.target.value)}
+      />
+     </div>
+    )
+}
+export default ContContent
+
+//TH3: đối số thứ 2 là dependence, khi dependence thay đổi thì useEffect mới được thực hiện
+import { useEffect } from "react"
+import { useState } from "react"
+const types = ['posts', 'comments', 'albums']
+const Content = () => {
+    const [title, setTitle] = useState('')
+    const [state, setState] = useState('posts')
+    const [posts, setPost] = useState([])
+    //khi render ra thi useEffect duoc goi, ma trong useEffect co setPost thi no lai render lai
+    //dieu do dan den vong lap vo han
+    //de giai guyet van def nay, ta su dung TH2 cos them dependence, tham so phu thuoc
+    useEffect(() => {
+        fetch(`https://jsonplaceholder.typicode.com/${state}`)
+            .then(res => res.json())
+            .then(data => {
+                setPost(data)
+            })
+    },[state])
+
+    return (
+        <div>
+            <input
+            value = {title}
+            onChange={(e) => setTitle(e.target.value)}
+            />
+            <div>
+            {types.map(type => 
+              (<button 
+                style={type === state ? {
+                    color: '#fff',
+                    backgroundColor: 'red',
+                }: {}}
+                key={type} 
+                onClick={() => setState(type)}>{type}</button>)     
+            )}
+            </div>
+            <ul>
+                {posts.map(post => (
+                    <li key={post.id}>{post.id} {post.title||post.name}</li>
+                ))}
+            </ul>
+        </div>
+    )
+}
 export default Content
