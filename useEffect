@@ -101,3 +101,68 @@ const Content = () => {
     )
 }
 export default Content
+//function click and render product of button
+const types = ['posts', 'comments', 'albums']
+const Content = () => {
+    const [title, setTitle] = useState('')
+    const [state, setState] = useState('posts')
+    const [posts, setPost] = useState([])
+    //khi render ra thi useEffect duoc goi, ma trong useEffect co setPost thi no lai render lai
+    //dieu do dan den vong lap vo han
+    //de giai guyet van def nay, ta su dung TH2 cos them dependence, tham so phu thuoc
+    useEffect(() => {
+        fetch(`https://jsonplaceholder.typicode.com/${state}`)
+            .then(res => res.json())
+            .then(data => {
+                setPost(data)
+            })
+        console.log('render');
+    },[state])
+
+    return (
+        <div>
+            <input
+            value = {title}
+            onChange={(e) => setTitle(e.target.value)}
+            />
+            <div>
+            //render all button is type
+            {types.map(type => 
+              (<button 
+                style={type === state ? {
+                    color: '#fff',
+                    backgroundColor: 'red',
+                }: {}}
+                key={type} 
+                onClick={() => setState(type)}>{type}</button>)     
+            )}
+            </div>
+            <ul>
+            //render current data
+                {posts.map(post => (
+                    <li key={post.id}>{post.id} {post.title||post.name}</li>
+                ))}
+            </ul>
+        </div>
+    )
+}
+//remove setTimeOut/ addEventlistner when compnent unmount
+ useEffect(() => {
+        //each set then it will not render the setState will check value of check diffrent then render other will not render
+        //it use === operation to compare the before value
+        const hanldeScroll = () => {
+            if(window.scrollY>200) {
+                setGo(true)
+            }else{
+                setGo(false)
+            }
+        }
+        
+        window.addEventListener('scroll', hanldeScroll())
+        //in useEffect should return afunction clear when component unmount
+        //because with time scroll it will render new component, but listener not unmount
+        return () => {
+                window.addEventListener('scroll', hanldeScroll())
+                console.log('..unmounting');
+            }
+    }, [])
