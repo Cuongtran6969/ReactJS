@@ -159,7 +159,7 @@ const Content = () => {
         }
         
         window.addEventListener('scroll', hanldeScroll())
-        //in useEffect should return afunction clear when component unmount
+        //in useEffect should return afunction clear when component unmount beacause addEvenlistener in windown scope
         //because with time scroll it will render new component, but listener not unmount
         return () => {
                 window.addEventListener('scroll', hanldeScroll())
