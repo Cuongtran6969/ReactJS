@@ -166,3 +166,44 @@ const Content = () => {
                 console.log('..unmounting');
             }
     }, [])
+//
+const courses = [
+    {
+        id: 1,
+        title: 'html, css'
+    },
+    {
+        id: 2,
+        title: 'React js'
+    },
+    {
+        id: 3,
+        title: 'Nodejs'
+    }
+]
+const Content = () => {
+    const [lessonId, setlessonId] = useState(1)
+    useEffect(()=> {
+        const handleComment = ({detail}) => {
+          console.log(detail);
+        }
+        window.addEventListener(`lesson-${lessonId}`, handleComment)
+        return () => {
+            window.removeEventListener(`lesson-${lessonId}`, handleComment)
+        }  
+    }, [lessonId])
+    return (
+        <ul>
+            {
+             courses.map(course => (
+                <li style = {
+                    course.id === lessonId ? {color: 'red'} : {}}
+                    onClick={() => setlessonId(course.id)}
+                    >{course.title}
+                </li>
+              ))
+            }
+        </ul>
+    )
+}
+export default Content
