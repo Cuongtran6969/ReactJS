@@ -1,0 +1,27 @@
+import { useEffect, useRef} from "react"
+import { useState } from "react"
+//use reft have property is "current" contain current value
+//this value will not reset when render component
+//when current store it will referent out of component
+const Content = () => {
+    const [count, setCount] = useState(90);
+    const ref = useRef();
+
+    const handleStart = () => {
+         ref.current = setInterval(() =>{
+            setCount(prev => prev-1)
+        }, 1000)
+    }
+
+    const handleStop = () => {
+        clearInterval(ref.current);
+    }
+    
+    return (
+        <div>
+            <h3>{count}</h3>
+            <button onClick={handleStart}>Start</button>
+            <button onClick={handleStop}>Stop</button>
+        </div>
+    )
+}
