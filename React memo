@@ -4,6 +4,10 @@
 //it is not nessary so we use memo to check prop have change 
 //if prop change it will render else no render this component child (<Content/>)
 
+//disadvantage
+//when prop is object it will compare before object and current object, it will always fasle
+//because after render object will store in new address
+//So we shold learn useCallback
 import { useState } from "react";
 import Content from "./content";
 
