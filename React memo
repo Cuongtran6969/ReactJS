@@ -1,0 +1,32 @@
+//App.js
+
+//When use set count component App will render and Content will render
+//it is not nessary so we use memo to check prop have change 
+//if prop change it will render else no render this component child (<Content/>)
+
+import { useState } from "react";
+import Content from "./content";
+
+function App() {
+  const [count, setCount] = useState(0)
+  return (
+    <div style={{padding: 20}}>
+      <h1>{count}</h1>
+      <button onClick={() => setCount(prev => prev+1)}>Click</button>
+      <Content/>
+    </div>
+  )
+}
+
+
+//content.js
+import { memo } from "react"
+const Content = () => {
+    console.log('re-render');
+    return (
+        <div>
+            Xin chao anh em
+        </div>
+    )
+}
+export default memo(Content)
