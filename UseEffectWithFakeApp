@@ -1,0 +1,77 @@
+//when click title each will active all content of this title
+/* index.js
+//create event in windown scope
+//each event will create after 2 seconds
+//windown.dispatchEvent will create a new CustomerEvent with two param:
+//first param is: event name
+//second param is: detail of each event
+function emmitComment(id) {
+   setInterval(()=> {
+      window.dispatchEvent(
+        new CustomEvent(`lesson-${id}`, {
+            detail: `Noi dung comment cua lesson ${id}`
+          })
+      )
+   }, 2000)
+}
+//create three event in windown scope
+emmitComment(1)
+emmitComment(2)
+emmitComment(3)
+
+root.render(
+    <App />
+);
+//* content.js
+import { useEffect} from "react"
+import { useState } from "react"
+//list course
+const courses = [
+    {
+        id: 1,
+        title: 'html, css'
+    },
+    {
+        id: 2,
+        title: 'React js'
+    },
+    {
+        id: 3,
+        title: 'Nodejs'
+    }
+]
+const Content = () => {
+    const [lessonId, setlessonId] = useState(1)
+    //useEffect wil active when lessonId change
+    //handleComment be called when window.addEventListener call
+    //after change will remove listener event of before course
+    useEffect(() => {
+        const handleComment = ({detail}) => {
+            console.log(detail);
+        }
+        window.addEventListener(`lesson-${lessonId}`, handleComment)
+
+        return ()=> {
+            window.removeEventListener(`lesson-${lessonId}`, handleComment)
+        }
+    }, [lessonId])
+//return list course, course have click and have id = lessonId will have red color
+    return (
+        <div>
+            <ul>
+                {
+                  courses.map(course => (
+                    <li 
+                       key = {course.id}
+                       style={{color: course.id === lessonId ? 'red' : ''}}
+                       onClick={() => setlessonId(course.id)}
+                       >
+                        {course.title}
+                       </li>
+                  ))
+                }
+            </ul>
+        </div>
+    )
+}
+export default Content
