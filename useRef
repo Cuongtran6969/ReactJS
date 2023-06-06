@@ -25,3 +25,18 @@ const Content = () => {
         </div>
     )
 }
+////
+const h1Ref = useRef();
+//can get element by useRef 
+console.log(h1Ref.current);//<h3>x</h3>
+
+//can get toa do of element
+console.log(h1Ref.current.getBoundingClientRect());
+
+    return (
+        <div>
+            <h3 ref={h1Ref}>{count}</h3>
+            <button onClick={handleStart}>Start</button>
+            <button onClick={handleStop}>Stop</button>
+        </div>
+    )
