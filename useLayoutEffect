@@ -10,24 +10,29 @@
 //3. Gọi lại useLayoutEffect
 //4. Render lại UI
 
+//use useLayoutEffect when we want to get value to check before render
 
 const Content = () => {
     const [count, setCount] = useState(0)
      
+    //useLayoutEffect will run callBack before render
     useLayoutEffect(() => {
          if(count>3) {
             setCount(0)
          }
     }, [count])
-    
+    //useEffect will run callBack after render
+    //mean will render a 4 it will run callBack and set back to zero
 //     useEffect(() => {
 //         if(count>3) {
 //            setCount(0)
 //         }
 //    }, [count])
+
     return (
         <div>
          <h1>{count}</h1>
+         //set new value of count when click
          <button onClick={()=> setCount(prev => prev+=1)}>Click</button>
         </div>
     )
