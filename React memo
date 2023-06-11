@@ -4,6 +4,32 @@
 //it is not nessary so we use memo to check prop have change 
 //if prop change it will render else no render this component child (<Content/>)
 
+//when count change prop of Content will check have change will render else no render
+import Content from "./content";
+function App() {
+  const [count, setCount] = useState(0)
+  return (
+    <div style={{padding: 20}}>
+      <h1>{count}</h1>
+      <button onClick={()=>setCount(prev => ++prev)}>Click</button>
+      <Content countValue={count}/>
+    </div>
+  )
+}
+export default App;
+
+import { memo } from "react"
+const Content = ({countValue}) => {
+    console.log('re-render');
+    return (
+        <div>
+            <h2>hello {countValue}</h2>
+        </div>
+    )
+}
+export default memo(Content)
+
+
 //disadvantage
 //when prop is object it will compare before object and current object, it will always fasle
 //because after render object will store in new address
