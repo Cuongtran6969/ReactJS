@@ -1,0 +1,65 @@
+import { click } from "@testing-library/user-event/dist/click";
+import {useMemo, useRef, useState } from "react";
+
+function App() {
+  const [name, setName] = useState('')
+  const [price, setPrice] = useState('')
+  const [products, setProducts] = useState([])
+  
+  //useRef to get tag to focus after add new product
+  const tagRef = useRef();
+  
+//handle when user add new product
+  const handleAddProduct = () => {
+    if(name.trim()=='' || price.trim()=='') {
+      alert('Need input')
+    } else {
+      setProducts([...products, {
+        name,
+        price: parseInt(price)
+      }])
+      setName('')
+      setPrice('')
+      priceRef.current.focus()
+    }   
+  }
+//useMemo help avoid a logic repeat when unnessesary.
+//In this work: when user input have 2 way bilding in input value, it will render when user input
+//We need logic calculate just active when user add product.
+//So to avoid repeat this logic, useMemo will solve it.
+//useMemo(callBack, empty/[]/[dependences]); it have two param: call back and deps or no deps
+//=> Apply: Because after setProduct() then products will have new product {name, price}
+//useMemo check dependences have change and it will active.
+
+  const total = useMemo(() => {
+    const result = products.reduce((results, product) => {
+      return results + product.price
+    }, 0)
+     return result;
+  }, [products])
+
+  return (
+    <div style={{padding: 20}}>
+      <input
+       ref={tagRef}
+       value={name}
+       placeholder="Enter name..."
+       onChange={(e) => setName(e.target.value)}
+      />
+      <input
+       value={price}
+       placeholder="Enter price..."
+       onChange={(e) => setPrice(e.target.value)}
+      />
+      <button onClick={handleAddProduct}>Add</button>
+      <h1>Total: {total}</h1>
+      <ul>
+        {products.map((product, index) => (
+          <li key={index}>{product.name} - {product.price}</li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+export default App;
