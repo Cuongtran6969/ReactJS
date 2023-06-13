@@ -1,0 +1,41 @@
+import { useReducer, useState } from "react";
+//have four important issue need attention
+//1. initial          - is initial value
+//2. action           - is action will solve
+//3. reducer function - receive state and action and return new state, "depending on the action to solve state"
+//4. dispatch         - activated reducer with action
+
+
+const initial = 0;
+
+//action
+const UP_ACTION =' UP_ACTION';
+const DOWN_ACTION = 'DOWN_ACTION';
+
+//reducer function
+const reducer = (state, action) => {
+  switch(action) {
+    case UP_ACTION:
+      return state + 1
+    case DOWN_ACTION:
+      return state - 1
+      default:
+        throw new Error('Invalid action')
+  }
+}
+ 
+function App() {
+ 
+  const [count, dispatch] = useReducer(reducer, initial)
+  
+  return (
+    <div style={{padding: 20}}>
+      <h1>{count}</h1>
+      //activated reducer when inClick by dispatch(action)
+     <button onClick={() => dispatch(UP_ACTION)}>Up</button>
+     <button onClick={() => dispatch(DOWN_ACTION)}>Down</button>
+    </div>
+  )
+}
+
+export default App;
