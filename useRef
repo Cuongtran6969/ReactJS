@@ -1,6 +1,6 @@
 import { useEffect, useRef} from "react"
 import { useState } from "react"
-//use reft have property is "current" contain current value
+//useRef have property is "current" contain current value
 //this value will not reset when render component
 //when current store it will referent out of component
 const Content = () => {
