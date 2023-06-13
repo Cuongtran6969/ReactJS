@@ -1,0 +1,81 @@
+import { click } from "@testing-library/user-event/dist/click";
+import { useReducer, useState } from "react";
+import { act } from "react-dom/test-utils";
+
+const initialState = {
+  job: '',
+  jobs: []
+}
+const SET_ACTION = 'set'
+const ADD_ACTION = 'add'
+const DELETE_ACTION = 'delete'
+
+const setJob = (payload) => {
+  return {
+    type: SET_ACTION,
+    payload
+  }
+}
+
+const addJob = (payload) => {
+  return {
+    type: ADD_ACTION,
+    payload
+  }
+}
+
+const deleteJob = (payload) => {
+  return {
+    type: DELETE_ACTION,
+    payload
+  }
+}
+const reducer = (state, action) => {
+  switch(action.type) {
+    case SET_ACTION:
+      return {
+        ...state,
+        job: action.payload,
+      }
+    case ADD_ACTION:
+      return {
+        ...state,
+        jobs: [...state.jobs, action.payload]
+      }
+      case DELETE_ACTION:
+        const newJobs = [...state.jobs]
+        newJobs.splice(action.payload, 1)
+        return {
+          ...state,
+          jobs: newJobs
+        }
+      default:
+        throw new Error('Invalid action')
+  }
+}
+   
+
+function App() {
+  const [state, dispatch] = useReducer(reducer, initialState)
+  const {job, jobs} = state;
+
+  return (
+    <div style={{padding: 20}}>
+      <input 
+       value={job}
+       placeholder="Enter job..."
+       onChange={(e) => dispatch(setJob(e.target.value))}
+      />
+      <button onClick={() => dispatch(addJob(job))}>Add</button>
+    <ul>
+      {jobs.map((job, index) => (
+        <li key={index}>{job}
+         <span onClick={() => dispatch(deleteJob(index))}>&times;</span>
+        </li>
+      ))}
+    </ul>
+    </div>
+  )
+}
+
+export default App;
