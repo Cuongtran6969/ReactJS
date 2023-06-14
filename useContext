@@ -1,0 +1,42 @@
+import { useState, createContext } from "react";
+import Content from "./content";
+//create content
+//Provider the value want to pass
+export const ThemeContext = createContext();
+function App() {
+  const [theme, setTheme] = useState('dark')
+
+  const handlToggleTheme = () => {
+    setTheme(theme == 'dark' ? 'light' : 'dark')
+  }
+
+  return (
+  //in componet child will reciver this vaule
+    <ThemeContext.Provider value={theme}>
+      <div style={{ padding: 20 }}>
+        <h1>Hello world</h1>
+        <button onClick={handlToggleTheme}>Toggle Theme</button>
+        <Content />
+      </div>
+    </ThemeContext.Provider>
+  )
+}
+export default App;
+
+//In file content.js
+
+import { useContext } from "react"
+import {ThemeContext} from "./App.js"
+import "./index.css"
+
+//import useContext and pass the context want to use
+const Content = () => {
+const theme = useContext(ThemeContext)
+    return (
+        <div>
+            <p className={theme}>At W3Schools you will find complete references about HTML 
+                elements, attributes, events, color names, entities, character-sets, URL encoding, language codes, HTTP messages, browser support, and more:</p>
+        </div>
+    )
+}
+export default Content
