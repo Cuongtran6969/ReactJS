@@ -10,6 +10,11 @@ const SET_ACTION = 'set'
 const ADD_ACTION = 'add'
 const DELETE_ACTION = 'delete'
 
+//the target is pass data through action when dispatch
+//so we create these function return a object contain type and data
+//in set: payload is value when user inChange
+//in add: payload is job when use click button
+//in delete: payload is index of element want delete
 const setJob = (payload) => {
   return {
     type: SET_ACTION,
