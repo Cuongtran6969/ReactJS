@@ -1,3 +1,6 @@
+//the class parent will provider context by createContext and prop is value={data} 
+//in the class child will receive context by useContext
+
 import { useState, createContext } from "react";
 import Content from "./content";
 //create content
@@ -35,6 +38,60 @@ const theme = useContext(ThemeContext)
     return (
         <div>
             <p className={theme}>At W3Schools you will find complete references about HTML 
+                elements, attributes, events, color names, entities, character-sets, URL encoding, language codes, HTTP messages, browser support, and more:</p>
+        </div>
+    )
+}
+export default Content
+
+//vd 2:
+//ThemeContext.js
+//provide context with value is object include theme and handleToggleTheme func
+//so the child recieve this class is parent will recieve this data
+import { useState, createContext } from "react";
+
+const ThemeContext = createContext();
+
+function ThemeProvider({children}) {
+    const [theme, setTheme] = useState('dark')
+
+    const handlToggleTheme = () => {
+      setTheme(theme == 'dark' ? 'light' : 'dark')
+    }
+    const data = {
+        theme,
+        handlToggleTheme
+    }
+    return (
+        <ThemeContext.Provider value={data}>
+         {children}
+        </ThemeContext.Provider>
+    )
+}
+export {ThemeContext, ThemeProvider}
+
+//index.js
+//so in the child is App will recieve data from ThemeProvide
+import { ThemeProvider } from "./ThemeContext";
+console.log(React);
+const root = ReactDOM.createRoot(document.getElementById('root'));
+//fake comments custom event
+root.render(
+    <ThemeProvider>
+        <App />
+    </ThemeProvider>
+);
+
+//content.js
+//Need use useContext will recieve of parent
+import { useContext } from "react"
+import {ThemeContext} from "./ThemeContext"
+import "./index.css"
+const Content = () => {
+const context = useContext(ThemeContext)
+    return (
+        <div>
+            <p className={context.theme}>At W3Schools you will find complete references about HTML 
                 elements, attributes, events, color names, entities, character-sets, URL encoding, language codes, HTTP messages, browser support, and more:</p>
         </div>
     )
