@@ -3,6 +3,7 @@ import { forwardRef, useImperativeHandle, useRef } from "react";
 
 function Video(props, ref) {
     const videoRef = useRef()
+    //only access other class use these method to them don't access ref
     useImperativeHandle(ref, () => ({
         play() {
             videoRef.current.play()
@@ -19,4 +20,6 @@ function Video(props, ref) {
         />
     )
 }
+//higher-order component to other class get ref
+//because ref not pass by component
 export default forwardRef(Video)
