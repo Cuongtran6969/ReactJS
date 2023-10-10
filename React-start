@@ -1,0 +1,18 @@
+const Form = {
+            Input() {
+               return <input type="text" />
+            },
+            Checkbox() {
+               return <input type="checkbox" />
+            }
+        }
+        function App() {
+          const type = "Checkbox"
+          const Component = Form[type]
+          return (
+             <Component />
+           )
+        }
+        const container = document.getElementById('root')
+        const root = ReactDOM.createRoot(container)
+        root.render(<App/>)
