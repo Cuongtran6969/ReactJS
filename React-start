@@ -44,3 +44,26 @@ const Button = ({title, href, onClick}) => {
         const container = document.getElementById('root')
         const root = ReactDOM.createRoot(container)
         root.render(<App/>)
+
+//Truyền một function là một props chilren
+     const List = ({ data, children }) => {
+            return (
+                <ul>
+//chính là hàm ở dưới
+                  {data.map(item => children(item))}
+                </ul>
+            )
+        }
+        function App() {
+         const cars = ["BMW", "MERS", "AUDI"]
+          return (
+            //function (item) => <li key={item}>{item}</li> is props children
+            //so we can call it
+            <List data={cars}>
+                {(item) => <li key={item}>{item}</li>}
+            </List>
+           )
+        }
+        const container = document.getElementById('root')
+        const root = ReactDOM.createRoot(container)
+        root.render(<App/>)
