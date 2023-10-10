@@ -16,3 +16,31 @@ const Form = {
         const container = document.getElementById('root')
         const root = ReactDOM.createRoot(container)
         root.render(<App/>)
+//một component đa năng, có thể làm button hoặc thẻ a tùy vào props mà mình truyền vào
+const Button = ({title, href, onClick}) => {
+            let Component = 'button';
+            const props = {}
+            if(href) {
+                Component = 'a';
+                props.href = href
+            }
+            if(onClick) {
+                props.onClick = onClick
+            }
+            return (
+                <Component {...props}>{title}</Component>
+            )
+        }
+        function App() {
+          return (
+            //  <Component />
+            <Button 
+             title = 'Click me'
+             href = "https://fullstack.edu.vn/"
+             onClick = {() => console.log(Math.random())}
+            />
+           )
+        }
+        const container = document.getElementById('root')
+        const root = ReactDOM.createRoot(container)
+        root.render(<App/>)
