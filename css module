@@ -1,0 +1,18 @@
+-chia các component nằm trong các module, mỗi module bao gồm:
++một file.js để chứa component
++một file css, nhưng để css cho từng component thì đặt tên file là file.module.css
+nó sẽ giúp cho các class đó sẽ không trùng với những class khác ở những module khác mặc dù nó cùng tên,
+vì nó sẽ thực hiện đổi tên class đó theo địa chỉ đường dẫn (dựa theo ) của file sẽ không trùng với những class khác 
+(heading => .filename_heading_1kgv)
+-đối với những thẻ tag thì sẽ không được thực hiện được việc module nên khi css ở module này sẽ bị ảnh hưởng lên module kia
+-thì đối với những thẻ tag này nên sử dụng scss để css trong những class của nó
+
+-đối với những thuộc tính mà muốn css chung cho nhiều module thì nên đặt chúng vào một folder global gồm:
++file global.css
++file index.js :
+import '.global.css'
+function GlobalStyle({chilren}) {
+  return children
+}
+export default GlobalStyle
+thì mình sẽ bọc nó ngoài file tổng để file con được kế thừa style đó <GlobalStyle> <App /> </GlobalStyle>
